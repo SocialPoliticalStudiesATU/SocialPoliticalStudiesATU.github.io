@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -18,7 +19,7 @@
             --shadow-color: rgba(0, 0, 0, 0.25);
             --font-main: 'Vazirmatn', sans-serif;
         }
-        
+
         * {
             margin: 0;
             padding: 0;
@@ -31,9 +32,9 @@
             color: var(--primary-text);
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start; /* Changed to flex-start for longer content */
             min-height: 100vh;
-            padding: 20px 15px;
+            padding: 40px 15px; /* Increased padding for better spacing */
             direction: rtl;
         }
         
@@ -82,8 +83,7 @@
             width: auto;
             filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
             transition: transform 0.3s ease;
-                        filter: brightness(0) invert(1);
-
+            filter: brightness(0) invert(1);
         }
         
         .logo:hover {
@@ -97,7 +97,7 @@
             margin-bottom: 30px;
         }
         
-          .social-link-item {
+        .social-link-item {
             display: flex;
             align-items: center;
             padding: 12px 20px;
@@ -118,22 +118,21 @@
         .social-icon {
             width: 28px;
             height: 28px;
-                        margin-right: 6px; /* <<< مارجین طبق دستور شما اصلاح شد */
-
+            margin-right: 8px;
         }
         
         .divider {
             border: none;
             height: 1px;
             background: linear-gradient(to left, transparent, var(--glass-border), transparent);
-            margin: 30px 0;
+            margin: 40px 0; /* Increased margin for better separation */
         }
         
         .quick-links {
             display: flex;
             flex-direction: column;
             gap: 18px;
-            margin-bottom: 40px;
+            /* margin-bottom is removed as divider handles it */
         }
         
         .quick-link-button {
@@ -172,12 +171,73 @@
             transform: translateY(-4px);
             box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
-        
-        .telegram-post {
-            margin-top: 20px;
+
+        /* --- STYLES FOR NEW SECTIONS --- */
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--primary-text);
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--accent-color);
+            display: inline-block;
+            padding-bottom: 5px;
         }
         
-        .telegram-post .section-title {
+        .advisor-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .advisor-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 2px solid var(--glass-border);
+            object-fit: cover;
+            box-shadow: 0 4px 15px var(--shadow-color);
+        }
+        
+        .advisor-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary-text);
+        }
+
+        .team-list {
+            list-style: none;
+            padding: 0;
+            text-align: right;
+        }
+
+        .team-member {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .team-member:last-child {
+            border-bottom: none;
+        }
+
+        .member-name {
+            font-weight: 500;
+            white-space: nowrap;
+            padding-left: 15px;
+        }
+
+        .member-role {
+            font-size: 0.9rem;
+            color: var(--secondary-text);
+            text-align: left;
+        }
+
+        /* --- END OF NEW STYLES --- */
+
+        .telegram-post .section-title-telegram {
             font-size: 1.1rem;
             font-weight: 500;
             color: var(--secondary-text);
@@ -192,6 +252,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
+        }
+
+        #telegram-embed-container iframe {
+            max-width: 100%;
         }
         
         .loading-indicator {
@@ -232,15 +296,15 @@
             <img src="https://z-cdn-media.chatglm.cn/files/11b2a727-6a87-46de-b22f-98be8ca66441_photo_5895431462822464889_x-removebg-preview.png?auth_key=1789208362-4c28e44979d34b6c8c7ed7f0dc668927-0-43e20f1b0451685d3aa887fcc604c96b" alt="لوگوی انجمن" class="logo">
             <img src="https://z-cdn-media.chatglm.cn/files/8ee6bc11-8d5b-49ea-9bdf-158c19729646_allameh%20logo.png?auth_key=1789208362-3f3bde30bb86471b9b37fa556f72d162-0-01e4201fb43a2ad732bf789383bf8982" alt="لوگوی دانشگاه" class="logo">
         </header>
-        
+
         <section class="social-links">
             <a href="https://t.me/social_political_studies_atu" class="social-link-item" target="_blank" rel="noopener noreferrer">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Telegram_2019_Logo.svg" alt="لوگوی تلگرام" class="social-icon">
-                <span>@social_political_studies_atu</span>
+                <span>social_political_studies_atu</span>
             </a>
             <a href="https://www.instagram.com/atu.sociopoliticalstudies/" class="social-link-item" target="_blank" rel="noopener noreferrer">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Instagram_logo_2022.svg" alt="لوگوی اینستاگرام" class="social-icon">
-                <span>@atu.sociopoliticalstudies</span>
+                <span>atu.sociopoliticalstudies</span>
             </a>
         </section>
         
@@ -251,9 +315,50 @@
             <a href="https://d-lib.atu.ac.ir/" class="quick-link-button" target="_blank" rel="noopener noreferrer">سامانه کتابخانه دیجیتال</a>
             <a href="https://ssd.atu.ac.ir/" class="quick-link-button" target="_blank" rel="noopener noreferrer">سایت دانشکده علوم اجتماعی</a>
         </section>
+
+        <!-- === NEW SECTION: ADVISOR === -->
+        <hr class="divider">
+        <section class="advisor-section">
+            <h2 class="section-title">استاد مشاور انجمن</h2>
+            <img src="https://ssd.atu.ac.ir/images/ssd/fa/news/news-primary/2020/010204_54449.jpg" alt="عکس دکتر علی جنادله" class="advisor-img">
+            <p class="advisor-name">دکتر علی جنادله</p>
+        </section>
+
+        <!-- === NEW SECTION: TEAM MEMBERS === -->
+        <hr class="divider">
+        <section class="team-section">
+            <h2 class="section-title">اعضای اصلی انجمن</h2>
+            <ul class="team-list">
+                <li class="team-member">
+                    <span class="member-name">مانی بورستانی</span>
+                    <span class="member-role">دبیر انجمن • مسئول تولید محتوا • مسئول هماهنگی امور اجرایی</span>
+                </li>
+                <li class="team-member">
+                    <span class="member-name">کیانا اکبری</span>
+                    <span class="member-role">مسئول توسعه ارتباطات انجمن • مسئول هماهنگی امور اجرایی • مسئول تحلیل و پیشنهاد محتوا</span>
+                </li>
+                <li class="team-member">
+                    <span class="member-name">مهسا جماره</span>
+   <span class="member-role">مسئول اینستاگرام • مسئول تحلیل و پیشنهاد محتوا</span>                </li>
+                <li class="team-member">
+                    <span class="member-name">هلن مجریان شرقی</span>
+                    <span class="member-role">مسئول اینستاگرام • مسئول حلقه‌های مطالعاتی و نشست‌های علمی</span>
+                </li>
+                <li class="team-member">
+                    <span class="member-name">نازنین کلانی</span>
+                    <span class="member-role">مسئول آرشیو و مستندسازی فعالیت‌ها</span>
+                </li>
+                <li class="team-member">
+                    <span class="member-name">ساجده مفیدی‌نسب</span>
+                    <span class="member-role">مسئول آرشیو و مستندسازی فعالیت‌ها</span>
+                </li>
+            </ul>
+        </section>
         
+        <hr class="divider">
+
         <section class="telegram-post">
-            <h2 class="section-title">از کانال تلگرام ما</h2>
+            <h2 class="section-title-telegram">از کانال تلگرام ما</h2>
             <div id="telegram-embed-container">
                 <div class="loading-indicator">
                     <div class="loading-spinner"></div>
@@ -263,7 +368,7 @@
         </section>
         
         <div class="footer">
-انجمن علمی-دانشجویی مطالعات اجتماعی و سیاسی دانشگاه علامه طباطبایی
+            انجمن علمی-دانشجویی مطالعات اجتماعی و سیاسی دانشگاه علامه طباطبایی
         </div>
     </div>
 
@@ -286,30 +391,22 @@
             const container = document.getElementById('telegram-embed-container');
 
             if (container) {
-                // Simulate loading delay for better UX
                 setTimeout(() => {
-                    container.innerHTML = randomEmbedCode;
-                    
-                    // Create the script element
+                    container.innerHTML = '';
                     const scriptElement = document.createElement('script');
                     scriptElement.async = true;
                     scriptElement.src = 'https://telegram.org/js/telegram-widget.js?22';
-                    
-                    // Extract post data from the embed code
                     const postMatch = randomEmbedCode.match(/data-telegram-post="([^"]+)"/);
                     if (postMatch) {
                         scriptElement.setAttribute('data-telegram-post', postMatch[1]);
                     }
-                    
                     const widthMatch = randomEmbedCode.match(/data-width="([^"]+)"/);
                     if (widthMatch) {
                         scriptElement.setAttribute('data-width', widthMatch[1]);
                     }
-                    
                     if (randomEmbedCode.includes('data-single')) {
                         scriptElement.setAttribute('data-single', '');
                     }
-                    
                     container.appendChild(scriptElement);
                 }, 1000);
             }
