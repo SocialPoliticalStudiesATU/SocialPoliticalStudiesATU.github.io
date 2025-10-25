@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -6,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>انجمن علمی-دانشجویی مطالعات اجتماعی و سیاسی دانشگاه علامه طباطبایی</title>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- کتابخانه برای افکت جشن و شادی -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
     <style>
         :root {
             --bg-gradient-start: #023047;
@@ -32,9 +35,9 @@
             color: var(--primary-text);
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* Changed to flex-start for longer content */
+            align-items: flex-start;
             min-height: 100vh;
-            padding: 40px 15px; /* Increased padding for better spacing */
+            padding: 40px 15px;
             direction: rtl;
         }
         
@@ -51,6 +54,7 @@
             text-align: center;
             position: relative;
             overflow: hidden;
+            transition: box-shadow 0.5s ease;
         }
         
         .container::before {
@@ -75,7 +79,7 @@
             justify-content: center;
             align-items: center;
             gap: 30px;
-            margin-bottom: 40px;
+            margin-bottom: 25px;
         }
         
         .logo {
@@ -88,6 +92,24 @@
         
         .logo:hover {
             transform: scale(1.05);
+        }
+
+        .intro-text {
+            margin-bottom: 35px;
+        }
+
+        .association-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            line-height: 1.4;
+            color: var(--primary-text);
+            margin-bottom: 10px;
+        }
+
+        .association-tagline {
+            font-size: 0.8rem;
+            color: var(--secondary-text);
+            line-height: 1.6;
         }
         
         .social-links {
@@ -125,54 +147,10 @@
             border: none;
             height: 1px;
             background: linear-gradient(to left, transparent, var(--glass-border), transparent);
-            margin: 40px 0; /* Increased margin for better separation */
-        }
-        
-        .quick-links {
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-            /* margin-bottom is removed as divider handles it */
-        }
-        
-        .quick-link-button {
-            display: block;
-            width: 100%;
-            padding: 16px;
-            background-color: var(--accent-color);
-            color: var(--bg-gradient-end);
-            text-decoration: none;
-            font-size: 1.1rem;
-            font-weight: 700;
-            border-radius: 12px;
-            transition: all 0.25s ease-in-out;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .quick-link-button::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-        
-        .quick-link-button:hover::before {
-            left: 100%;
-        }
-        
-        .quick-link-button:hover {
-            background-color: var(--accent-hover);
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            margin: 40px 0;
         }
 
-        /* --- STYLES FOR NEW SECTIONS --- */
+        /* --- STYLES FOR ADVISOR QUIZ SECTION (MODIFIED ANIMATION) --- */
         .section-title {
             font-size: 1.2rem;
             font-weight: 500;
@@ -187,7 +165,89 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 15px;
+        }
+
+        /* <<< CHANGE START: Added transition for title and name */
+        .advisor-section .section-title,
+        .advisor-name {
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+        
+        /* <<< CHANGE START: Defines the hidden state for title and name */
+        .advisor-section.quiz-active .section-title,
+        .advisor-section.quiz-active .advisor-name {
+            opacity: 0;
+            transform: translateY(-20px);
+            pointer-events: none;
+        }
+
+        .advisor-interactive-area {
+            position: relative;
+            height: 150px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 15px; /* Added margin for better spacing */
+        }
+        
+        .advisor-image-wrapper, .advisor-quiz-wrapper {
+            position: absolute;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .advisor-image-wrapper {
+            opacity: 1;
+            transform: scale(1);
+            cursor: pointer;
+        }
+        .advisor-section.quiz-active .advisor-image-wrapper {
+            opacity: 0;
+            transform: scale(0.5);
+            pointer-events: none;
+        }
+
+        .advisor-quiz-wrapper {
+            opacity: 0;
+            transform: scale(1.2);
+            pointer-events: none;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 20px;
+            width: 90%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .advisor-section.quiz-active .advisor-quiz-wrapper {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+        }
+
+        .quiz-question {
+            font-size: 1rem;
+            margin-bottom: 15px;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .quiz-options {
+            font-size: 0.9rem;
+            width: 100%;
+        }
+
+        .quiz-option {
+            padding: 8px;
+            margin: 4px 0;
+            border-radius: 8px;
+            transition: background-color 0.2s;
+            cursor: pointer;
+        }
+        .quiz-option:hover {
+            background-color: var(--glass-border);
         }
         
         .advisor-img {
@@ -203,91 +263,35 @@
             font-size: 1.1rem;
             font-weight: 700;
             color: var(--primary-text);
-        }
-
-        .team-list {
-            list-style: none;
-            padding: 0;
-            text-align: right;
-        }
-
-        .team-member {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 5px;
-            border-bottom: 1px solid var(--glass-border);
-        }
-
-        .team-member:last-child {
-            border-bottom: none;
-        }
-
-        .member-name {
-            font-weight: 500;
-            white-space: nowrap;
-            padding-left: 15px;
-        }
-
-        .member-role {
-            font-size: 0.9rem;
-            color: var(--secondary-text);
-            text-align: left;
-        }
-
-        /* --- END OF NEW STYLES --- */
-
-        .telegram-post .section-title-telegram {
-            font-size: 1.1rem;
-            font-weight: 500;
-            color: var(--secondary-text);
-            margin-bottom: 20px;
+            cursor: pointer;
+            margin-top: 15px;
         }
         
-        #telegram-embed-container {
-            min-height: 200px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .container.error-effect {
+            animation: shakeAndRed 0.5s 10;
+            box-shadow: 0 0 40px 10px rgba(255, 0, 0, 0.5);
         }
 
-        #telegram-embed-container iframe {
-            max-width: 100%;
+        @keyframes shakeAndRed {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
         }
-        
-        .loading-indicator {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .loading-spinner {
-            width: 30px;
-            height: 30px;
-            border: 3px solid rgba(255, 255, 255, 0.1);
-            border-top-color: var(--accent-color);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        .loading-text {
-            color: var(--secondary-text);
-            font-size: 0.9rem;
-        }
-        
-        .footer {
-            margin-top: 40px;
-            font-size: 0.8rem;
-            color: var(--secondary-text);
-        }
+
+        /* --- STYLES FOR OTHER SECTIONS --- */
+        .team-list { list-style: none; padding: 0; text-align: right; }
+        .team-member { display: flex; justify-content: space-between; align-items: center; padding: 15px 5px; border-bottom: 1px solid var(--glass-border); }
+        .team-member:last-child { border-bottom: none; }
+        .member-name { font-weight: 500; white-space: nowrap; padding-left: 15px; }
+        .member-role { font-size: 0.9rem; color: var(--secondary-text); text-align: left; }
+        .telegram-post .section-title-telegram { font-size: 1.1rem; font-weight: 500; color: var(--secondary-text); margin-bottom: 20px; }
+        #telegram-embed-container { min-height: 200px; background: rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 10px; display: flex; justify-content: center; align-items: center; }
+        #telegram-embed-container iframe { max-width: 100%; }
+        .loading-indicator { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .loading-spinner { width: 30px; height: 30px; border: 3px solid rgba(255, 255, 255, 0.1); border-top-color: var(--accent-color); border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loading-text { color: var(--secondary-text); font-size: 0.9rem; }
+        .footer { margin-top: 40px; font-size: 0.8rem; color: var(--secondary-text); }
     </style>
 </head>
 <body>
@@ -296,6 +300,11 @@
             <img src="https://z-cdn-media.chatglm.cn/files/11b2a727-6a87-46de-b22f-98be8ca66441_photo_5895431462822464889_x-removebg-preview.png?auth_key=1789208362-4c28e44979d34b6c8c7ed7f0dc668927-0-43e20f1b0451685d3aa887fcc604c96b" alt="لوگوی انجمن" class="logo">
             <img src="https://z-cdn-media.chatglm.cn/files/8ee6bc11-8d5b-49ea-9bdf-158c19729646_allameh%20logo.png?auth_key=1789208362-3f3bde30bb86471b9b37fa556f72d162-0-01e4201fb43a2ad732bf789383bf8982" alt="لوگوی دانشگاه" class="logo">
         </header>
+
+        <div class="intro-text">
+            <h1 class="association-title">انجمن علمی-دانشجویی مطالعات اجتماعی و سیاسی</h1>
+            <p class="association-tagline">ما یک انجمن بینارشته‌ای هستیم. پس از هر رشته‌ای که هستی، خوش اومدی.</p>
+        </div>
 
         <section class="social-links">
             <a href="https://t.me/social_political_studies_atu" class="social-link-item" target="_blank" rel="noopener noreferrer">
@@ -308,55 +317,46 @@
             </a>
         </section>
         
-
-        <!-- === NEW SECTION: ADVISOR === -->
         <hr class="divider">
-        <section class="advisor-section">
+        <section class="advisor-section" id="advisorSection">
             <h2 class="section-title">استاد مشاور انجمن</h2>
-            <img src="https://i.ibb.co/9km6Gvtq/010204-54449.jpg" alt="عکس دکتر علی جنادله" class="advisor-img">
-            <p class="advisor-name">دکتر علی جنادله</p>
+            
+            <div class="advisor-interactive-area">
+                <div class="advisor-image-wrapper" id="advisorImageWrapper">
+                    <img src="https://i.ibb.co/9km6Gvtq/010204-54449.jpg" alt="عکس دکتر علی جنادله" class="advisor-img">
+                </div>
+                <div class="advisor-quiz-wrapper">
+                    <div class="quiz-question">دکتر علی جنادله عضو هیئت علمی کدام گروه است؟</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-answer="a">الف. جامعه‌شناسی</div>
+                        <div class="quiz-option" data-answer="b">ب. مطالعات فرهنگی</div>
+                        <div class="quiz-option" data-answer="c">ج. مطالعات زنان</div>
+                        <div class="quiz-option" data-answer="d">د. تعاون و رفاه</div>
+                    </div>
+                </div>
+            </div>
+
+            <p class="advisor-name" id="advisorName">دکتر علی جنادله</p>
         </section>
 
-        <!-- === NEW SECTION: TEAM MEMBERS === -->
         <hr class="divider">
         <section class="team-section">
             <h2 class="section-title">اعضای اصلی انجمن</h2>
             <ul class="team-list">
-                <li class="team-member">
-                    <span class="member-name">مانی بورستانی</span>
-                    <span class="member-role">دبیر انجمن • مسئول تولید محتوا • مسئول هماهنگی امور اجرایی</span>
-                </li>
-                <li class="team-member">
-                    <span class="member-name">کیانا اکبری</span>
-                    <span class="member-role">مسئول توسعه ارتباطات انجمن • مسئول هماهنگی امور اجرایی • مسئول تحلیل و پیشنهاد محتوا</span>
-                </li>
-                <li class="team-member">
-                    <span class="member-name">مهسا جماره</span>
-   <span class="member-role">مسئول اینستاگرام • مسئول تحلیل و پیشنهاد محتوا</span>                </li>
-                <li class="team-member">
-                    <span class="member-name">هلن مجریان شرقی</span>
-                    <span class="member-role">مسئول اینستاگرام • مسئول حلقه‌های مطالعاتی و نشست‌های علمی</span>
-                </li>
-                <li class="team-member">
-                    <span class="member-name">نازنین کلانی</span>
-                    <span class="member-role">مسئول آرشیو و مستندسازی فعالیت‌ها</span>
-                </li>
-                <li class="team-member">
-                    <span class="member-name">ساجده مفیدی‌نسب</span>
-                    <span class="member-role">مسئول آرشیو و مستندسازی فعالیت‌ها</span>
-                </li>
+                <li class="team-member"> <span class="member-name">مانی بورستانی</span> <span class="member-role">دبیر انجمن • مسئول تولید محتوا • مسئول هماهنگی امور اجرایی</span> </li>
+                <li class="team-member"> <span class="member-name">کیانا اکبری</span> <span class="member-role">مسئول توسعه ارتباطات انجمن • مسئول هماهنگی امور اجرایی • مسئول تحلیل و پیشنهاد محتوا</span> </li>
+                <li class="team-member"> <span class="member-name">مهسا جماره</span> <span class="member-role">مسئول اینستاگرام • مسئول تحلیل و پیشنهاد محتوا</span> </li>
+                <li class="team-member"> <span class="member-name">هلن مجریان شرقی</span> <span class="member-role">مسئول اینستاگرام • مسئول حلقه‌های مطالعاتی و نشست‌های علمی</span> </li>
+                <li class="team-member"> <span class="member-name">نازنین کلانی</span> <span class="member-role">مسئول آرشیو و مستندسازی فعالیت‌ها</span> </li>
+                <li class="team-member"> <span class="member-name">ساجده مفیدی‌نسب</span> <span class="member-role">مسئول آرشیو و مستندسازی فعالیت‌ها</span> </li>
             </ul>
         </section>
         
         <hr class="divider">
-
         <section class="telegram-post">
             <h2 class="section-title-telegram">از کانال تلگرام ما</h2>
             <div id="telegram-embed-container">
-                <div class="loading-indicator">
-                    <div class="loading-spinner"></div>
-                    <div class="loading-text">در حال بارگذاری پست...</div>
-                </div>
+                <div class="loading-indicator">...</div>
             </div>
         </section>
         
@@ -367,6 +367,55 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            
+            // --- ADVISOR QUIZ LOGIC ---
+            const advisorSection = document.getElementById('advisorSection');
+            const advisorImageWrapper = document.getElementById('advisorImageWrapper');
+            const advisorName = document.getElementById('advisorName');
+            const quizOptions = document.querySelectorAll('.quiz-option');
+            const mainContainer = document.querySelector('.container');
+            let isQuizActive = false;
+            let isInteractive = true;
+
+            function toggleQuiz() {
+                if (isInteractive) {
+                    isQuizActive = !isQuizActive;
+                    advisorSection.classList.toggle('quiz-active', isQuizActive);
+                }
+            }
+
+            advisorImageWrapper.addEventListener('click', toggleQuiz);
+            advisorName.addEventListener('click', toggleQuiz);
+
+            quizOptions.forEach(option => {
+                option.addEventListener('click', function(event) {
+                    if (!isInteractive) return;
+                    
+                    event.stopPropagation();
+                    isInteractive = false;
+                    
+                    const isCorrect = this.dataset.answer === 'c';
+
+                    if (isCorrect) {
+                        confetti({ particleCount: 150, spread: 90, origin: { y: 0.6 } });
+                    } else {
+                        mainContainer.classList.add('error-effect');
+                    }
+
+                    setTimeout(() => {
+                        isQuizActive = false;
+                        advisorSection.classList.remove('quiz-active');
+                        if (!isCorrect) {
+                            mainContainer.classList.remove('error-effect');
+                        }
+                        setTimeout(() => {
+                            isInteractive = true;
+                        }, 500);
+                    }, 5000);
+                });
+            });
+
+            // --- TELEGRAM POST LOGIC ---
             const telegramEmbedCodes = [
                 '<script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-post="Social_Political_Studies_ATU/240" data-width="100%" data-single><\/script>',
                 '<script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-post="Social_Political_Studies_ATU/199" data-width="100%"><\/script>',
@@ -381,26 +430,20 @@
 
             const randomIndex = Math.floor(Math.random() * telegramEmbedCodes.length);
             const randomEmbedCode = telegramEmbedCodes[randomIndex];
-            const container = document.getElementById('telegram-embed-container');
+            const tg_container = document.getElementById('telegram-embed-container');
 
-            if (container) {
+            if (tg_container) {
                 setTimeout(() => {
-                    container.innerHTML = '';
+                    tg_container.innerHTML = '';
                     const scriptElement = document.createElement('script');
                     scriptElement.async = true;
                     scriptElement.src = 'https://telegram.org/js/telegram-widget.js?22';
                     const postMatch = randomEmbedCode.match(/data-telegram-post="([^"]+)"/);
-                    if (postMatch) {
-                        scriptElement.setAttribute('data-telegram-post', postMatch[1]);
-                    }
+                    if (postMatch) { scriptElement.setAttribute('data-telegram-post', postMatch[1]); }
                     const widthMatch = randomEmbedCode.match(/data-width="([^"]+)"/);
-                    if (widthMatch) {
-                        scriptElement.setAttribute('data-width', widthMatch[1]);
-                    }
-                    if (randomEmbedCode.includes('data-single')) {
-                        scriptElement.setAttribute('data-single', '');
-                    }
-                    container.appendChild(scriptElement);
+                    if (widthMatch) { scriptElement.setAttribute('data-width', widthMatch[1]); }
+                    if (randomEmbedCode.includes('data-single')) { scriptElement.setAttribute('data-single', ''); }
+                    tg_container.appendChild(scriptElement);
                 }, 1000);
             }
         });
