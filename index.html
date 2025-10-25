@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -73,210 +74,48 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        
-        .header-logos {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 30px;
-            margin-bottom: 25px;
-        }
-        
-        .logo {
-            max-height: 70px;
-            width: auto;
-            filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
-            transition: transform 0.3s ease;
-            filter: brightness(0) invert(1);
-        }
-        
-        .logo:hover {
-            transform: scale(1.05);
-        }
 
-        .intro-text {
-            margin-bottom: 35px;
-        }
+        /* --- STYLES FOR TIMED EVENT --- */
+        #event-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(0, 0, 0, 0); z-index: 9999; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: background-color 1.5s ease, opacity 1.5s ease; }
+        #event-overlay.is-active { background-color: rgb(0, 0, 0); opacity: 1; pointer-events: auto; }
+        #lightning-flash { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: white; opacity: 0; z-index: 10000; }
+        @keyframes lightning-strike { 0%{opacity:0;} 10%{opacity:1;} 15%{opacity:0;} 20%{opacity:0.8;} 30%{opacity:0;} 100%{opacity:0;} }
+        #event-text { color: var(--primary-text); font-size: 10vw; font-weight: 700; opacity: 0; transform: scale(0.8); transition: opacity 0.5s ease 1s, transform 0.5s ease 1s; z-index: 10001; }
+        #event-overlay.is-active #event-text { opacity: 1; transform: scale(1); }
+        
+        .header-logos { display: flex; justify-content: center; align-items: center; gap: 30px; margin-bottom: 25px; }
+        .logo { max-height: 70px; width: auto; filter: drop-shadow(0 0 5px rgba(0,0,0,0.5)); transition: transform 0.3s ease; filter: brightness(0) invert(1); }
+        .logo:hover { transform: scale(1.05); }
+        .intro-text { margin-bottom: 35px; }
+        .association-title { font-size: 1.25rem; font-weight: 700; line-height: 1.4; color: var(--primary-text); margin-bottom: 10px; }
+        .association-tagline { font-size: 0.8rem; color: var(--secondary-text); line-height: 1.6; }
+        .social-links { display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px; }
+        .social-link-item { display: flex; align-items: center; padding: 12px 20px; background: rgba(255, 255, 255, 0.1); border-radius: 12px; text-decoration: none; color: var(--primary-text); font-weight: 500; transition: transform 0.2s ease, background-color 0.2s ease; direction: ltr; }
+        .social-link-item:hover { transform: scale(1.05); background-color: rgba(255, 255, 255, 0.2); }
+        .social-icon { width: 28px; height: 28px; margin-right: 8px; }
+        .divider { border: none; height: 1px; background: linear-gradient(to left, transparent, var(--glass-border), transparent); margin: 40px 0; }
 
-        .association-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            line-height: 1.4;
-            color: var(--primary-text);
-            margin-bottom: 10px;
-        }
-
-        .association-tagline {
-            font-size: 0.8rem;
-            color: var(--secondary-text);
-            line-height: 1.6;
-        }
-        
-        .social-links {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-        
-        .social-link-item {
-            display: flex;
-            align-items: center;
-            padding: 12px 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            text-decoration: none;
-            color: var(--primary-text);
-            font-weight: 500;
-            transition: transform 0.2s ease, background-color 0.2s ease;
-            direction: ltr;
-        }
-        
-        .social-link-item:hover {
-            transform: scale(1.05);
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-        
-        .social-icon {
-            width: 28px;
-            height: 28px;
-            margin-right: 8px;
-        }
-        
-        .divider {
-            border: none;
-            height: 1px;
-            background: linear-gradient(to left, transparent, var(--glass-border), transparent);
-            margin: 40px 0;
-        }
-
-        /* --- STYLES FOR ADVISOR QUIZ SECTION (MODIFIED ANIMATION) --- */
-        .section-title {
-            font-size: 1.2rem;
-            font-weight: 500;
-            color: var(--primary-text);
-            margin-bottom: 25px;
-            border-bottom: 1px solid var(--accent-color);
-            display: inline-block;
-            padding-bottom: 5px;
-        }
-        
-        .advisor-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        /* <<< CHANGE START: Added transition for title and name */
+        /* --- STYLES FOR ADVISOR QUIZ SECTION (CORRECTED) --- */
+        .section-title { font-size: 1.2rem; font-weight: 500; color: var(--primary-text); margin-bottom: 25px; border-bottom: 1px solid var(--accent-color); display: inline-block; padding-bottom: 5px; }
+        .advisor-section { display: flex; flex-direction: column; align-items: center; }
         .advisor-section .section-title,
-        .advisor-name {
-            transition: opacity 0.4s ease, transform 0.4s ease;
-        }
-        
-        /* <<< CHANGE START: Defines the hidden state for title and name */
+        .advisor-name { transition: opacity 0.4s ease, transform 0.4s ease; }
         .advisor-section.quiz-active .section-title,
-        .advisor-section.quiz-active .advisor-name {
-            opacity: 0;
-            transform: translateY(-20px);
-            pointer-events: none;
-        }
-
-        .advisor-interactive-area {
-            position: relative;
-            height: 150px;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 15px; /* Added margin for better spacing */
-        }
-        
-        .advisor-image-wrapper, .advisor-quiz-wrapper {
-            position: absolute;
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-
-        .advisor-image-wrapper {
-            opacity: 1;
-            transform: scale(1);
-            cursor: pointer;
-        }
-        .advisor-section.quiz-active .advisor-image-wrapper {
-            opacity: 0;
-            transform: scale(0.5);
-            pointer-events: none;
-        }
-
-        .advisor-quiz-wrapper {
-            opacity: 0;
-            transform: scale(1.2);
-            pointer-events: none;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 15px;
-            padding: 20px;
-            width: 90%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .advisor-section.quiz-active .advisor-quiz-wrapper {
-            opacity: 1;
-            transform: scale(1);
-            pointer-events: auto;
-        }
-
-        .quiz-question {
-            font-size: 1rem;
-            margin-bottom: 15px;
-            line-height: 1.5;
-            font-weight: 500;
-        }
-
-        .quiz-options {
-            font-size: 0.9rem;
-            width: 100%;
-        }
-
-        .quiz-option {
-            padding: 8px;
-            margin: 4px 0;
-            border-radius: 8px;
-            transition: background-color 0.2s;
-            cursor: pointer;
-        }
-        .quiz-option:hover {
-            background-color: var(--glass-border);
-        }
-        
-        .advisor-img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            border: 2px solid var(--glass-border);
-            object-fit: cover;
-            box-shadow: 0 4px 15px var(--shadow-color);
-        }
-        
-        .advisor-name {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--primary-text);
-            cursor: pointer;
-            margin-top: 15px;
-        }
-        
-        .container.error-effect {
-            animation: shakeAndRed 0.5s 10;
-            box-shadow: 0 0 40px 10px rgba(255, 0, 0, 0.5);
-        }
-
-        @keyframes shakeAndRed {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
+        .advisor-section.quiz-active .advisor-name { opacity: 0; transform: translateY(-20px); pointer-events: none; }
+        .advisor-interactive-area { position: relative; height: 150px; width: 100%; display: flex; justify-content: center; align-items: center; }
+        .advisor-image-wrapper, .advisor-quiz-wrapper { position: absolute; transition: opacity 0.5s ease, transform 0.5s ease; }
+        .advisor-image-wrapper { opacity: 1; transform: scale(1); cursor: pointer; }
+        .advisor-section.quiz-active .advisor-image-wrapper { opacity: 0; transform: scale(0.5); pointer-events: none; }
+        .advisor-quiz-wrapper { opacity: 0; transform: scale(1.2); pointer-events: none; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 15px; padding: 20px; width: 90%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .advisor-section.quiz-active .advisor-quiz-wrapper { opacity: 1; transform: scale(1); pointer-events: auto; }
+        .quiz-question { font-size: 1rem; margin-bottom: 15px; line-height: 1.5; font-weight: 500; }
+        .quiz-options { font-size: 0.9rem; width: 100%; }
+        .quiz-option { padding: 8px; margin: 4px 0; border-radius: 8px; transition: background-color 0.2s; cursor: pointer; }
+        .quiz-option:hover { background-color: var(--glass-border); }
+        .advisor-img { width: 100px; height: 100px; border-radius: 50%; border: 2px solid var(--glass-border); object-fit: cover; box-shadow: 0 4px 15px var(--shadow-color); }
+        .advisor-name { font-size: 1.1rem; font-weight: 700; color: var(--primary-text); cursor: pointer; margin-top: 15px; }
+        .container.error-effect { animation: shakeAndRed 0.5s 10; box-shadow: 0 0 40px 10px rgba(255, 0, 0, 0.5); }
+        @keyframes shakeAndRed { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
 
         /* --- STYLES FOR OTHER SECTIONS --- */
         .team-list { list-style: none; padding: 0; text-align: right; }
@@ -295,6 +134,12 @@
     </style>
 </head>
 <body>
+    <div id="event-overlay">
+        <div id="lightning-flash"></div>
+        <div id="event-text">۹ آبان</div>
+    </div>
+    <audio id="thunderSound" src="https://www.myinstants.com/media/sounds/lightning-storm-sound-effect.mp3" preload="auto"></audio>
+
     <div class="container">
         <header class="header-logos">
             <img src="https://z-cdn-media.chatglm.cn/files/11b2a727-6a87-46de-b22f-98be8ca66441_photo_5895431462822464889_x-removebg-preview.png?auth_key=1789208362-4c28e44979d34b6c8c7ed7f0dc668927-0-43e20f1b0451685d3aa887fcc604c96b" alt="لوگوی انجمن" class="logo">
@@ -367,8 +212,26 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            
-            // --- ADVISOR QUIZ LOGIC ---
+            // --- LOGIC FOR TIMED EVENT ---
+            const eventOverlay = document.getElementById('event-overlay');
+            const lightningFlash = document.getElementById('lightning-flash');
+            const thunderSound = document.getElementById('thunderSound');
+
+            function startEvent() {
+                thunderSound.play().catch(e => console.error("Audio play failed:", e));
+                lightningFlash.style.animation = 'lightning-strike 1s forwards';
+                setTimeout(() => { eventOverlay.classList.add('is-active'); }, 200);
+                setTimeout(endEvent, 5500);
+            }
+
+            function endEvent() {
+                eventOverlay.classList.remove('is-active');
+                setTimeout(() => { lightningFlash.style.animation = ''; }, 1500);
+            }
+
+            setTimeout(startEvent, 3000);
+
+            // --- ADVISOR QUIZ LOGIC (CORRECTED) ---
             const advisorSection = document.getElementById('advisorSection');
             const advisorImageWrapper = document.getElementById('advisorImageWrapper');
             const advisorName = document.getElementById('advisorName');
@@ -410,7 +273,7 @@
                         }
                         setTimeout(() => {
                             isInteractive = true;
-                        }, 500);
+                        }, 500); // Wait for fade-out animation
                     }, 5000);
                 });
             });
