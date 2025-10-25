@@ -40,7 +40,9 @@
         #entry-screen {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            display: flex; align-items: center; justify-content: center;
+            display: flex;
+            flex-direction: column; /* To stack text and button */
+            align-items: center; justify-content: center;
             z-index: 10002;
             transition: opacity 0.5s ease;
         }
@@ -48,6 +50,15 @@
             opacity: 0;
             pointer-events: none;
         }
+
+        /* <<< NEW STYLE ADDED HERE >>> */
+        .volume-prompt {
+            color: var(--secondary-text);
+            font-size: 1rem;
+            margin-bottom: 25px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+        }
+
         #entryButton {
             padding: 15px 40px; font-size: 1.5rem;
             background-color: var(--accent-color);
@@ -67,7 +78,6 @@
             box-shadow: 0 8px 32px 0 var(--shadow-color); backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px); padding: 40px 30px; text-align: center;
             position: relative; overflow: hidden; transition: box-shadow 0.5s ease;
-            /* Initially hidden */
             opacity: 0;
             pointer-events: none;
             transform: scale(0.95);
@@ -140,6 +150,8 @@
 </head>
 <body>
     <div id="entry-screen">
+        <!-- <<< TEXT ADDED HERE >>> -->
+        <p class="volume-prompt">لطفا صدای گوشیتو زیاد کن.</p>
         <button id="entryButton">بزن بریم</button>
     </div>
 
