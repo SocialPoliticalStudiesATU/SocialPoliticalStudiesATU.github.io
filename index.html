@@ -4,21 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>انجمن علمی-دانشجویی مطالعات اجتماعی و سیاسی دانشگاه علامه طباطبایی</title>
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 
     <style>
         :root {
-            --bg-gradient-start: #023047;
-            --bg-gradient-end: #001219;
-            --glass-bg: rgba(255, 255, 255, 0.08);
-            --glass-border: rgba(255, 255, 255, 0.2);
-            --primary-text: #edf2f4;
-            --secondary-text: #adb5bd;
-            --accent-color: #FFB703;
-            --accent-hover: #fca311;
-            --shadow-color: rgba(0, 0, 0, 0.25);
+            /* Neo-Brutalism Palette */
+            --bg-color: #fdfbf7; /* Paper white */
+            --main-border: 3px solid #000000;
+            --hard-shadow: 6px 6px 0px 0px #000000;
+            --accent-pink: #ff9ff3;
+            --accent-yellow: #feca57;
+            --accent-cyan: #48dbfb;
+            --accent-green: #1dd1a1;
+            --text-color: #000000;
+            --secondary-text: #576574;
             --font-main: 'Vazirmatn', sans-serif;
         }
 
@@ -26,319 +26,516 @@
         
         body {
             font-family: var(--font-main);
-            background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
-            color: var(--primary-text);
+            background-color: var(--accent-cyan);
+            background-image: 
+                radial-gradient(#000 1px, transparent 1px),
+                radial-gradient(#000 1px, transparent 1px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            color: var(--text-color);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            min-height: 100vh;
-            padding: 40px 15px;
-            direction: rtl;
+            padding: 20px 10px;
+            overflow-x: hidden;
         }
-        
-        /* --- STYLES FOR ENTRY SCREEN --- */
-        #entry-screen {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+
+        /* --- LAYOUT CONTAINER --- */
+        .brutal-container {
+            width: 100%;
+            max-width: 600px;
+            background: var(--bg-color);
+            border: var(--main-border);
+            box-shadow: var(--hard-shadow);
+            padding: 0;
+            margin-bottom: 50px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* --- MARQUEE (SCROLLING TEXT) --- */
+        .marquee-container {
+            background: #000;
+            color: #fff;
+            padding: 8px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            border-bottom: var(--main-border);
+        }
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 15s linear infinite;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); } /* RTL Logic */
+        }
+
+        /* --- HEADER & LOGOS --- */
+        .header-section {
+            padding: 30px 20px;
+            text-align: center;
+            background: radial-gradient(circle, var(--accent-yellow) 20%, transparent 20%) 0 0/10px 10px; 
+            border-bottom: var(--main-border);
+        }
+        .header-logos {
             display: flex;
-            flex-direction: column; /* To stack text and button */
-            align-items: center; justify-content: center;
-            z-index: 10002;
-            transition: opacity 0.5s ease;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
         }
-        #entry-screen.is-hidden {
-            opacity: 0;
-            pointer-events: none;
+        .logo {
+            height: 80px;
+            width: auto;
+            transition: all 0.2s;
+        }
+        .logo:hover {
+            filter: grayscale(0%) drop-shadow(4px 4px 0px #000);
+            transform: translate(-2px, -2px);
         }
 
-        /* <<< NEW STYLE ADDED HERE >>> */
-        .volume-prompt {
-            color: var(--secondary-text);
+        /* --- TITLES --- */
+        .title-box {
+            background: #000;
+            color: #fff;
+            display: inline-block;
+            padding: 10px 20px;
+            transform: rotate(-2deg);
+            margin-bottom: 15px;
+            border: 2px solid #fff;
+            box-shadow: 4px 4px 0px var(--accent-pink);
+        }
+        .association-title {
+            font-size: 1.5rem;
+            font-weight: 900;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+        .association-tagline {
             font-size: 1rem;
-            margin-bottom: 25px;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+            font-weight: 700;
+            background: var(--accent-pink);
+            display: inline;
+            padding: 2px 5px;
+            box-shadow: 2px 2px 0 #000;
         }
 
-        #entryButton {
-            padding: 15px 40px; font-size: 1.5rem;
-            background-color: var(--accent-color);
-            border: none; border-radius: 12px; cursor: pointer;
-            color: var(--bg-gradient-end); font-weight: 700;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        /* --- SOCIAL LINKS --- */
+        .social-section {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding: 30px;
+            background: #fff;
         }
-        #entryButton:hover {
-             background-color: var(--accent-hover);
-             transform: scale(1.05);
+        .social-link-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            background: #fff;
+            border: var(--main-border);
+            text-decoration: none;
+            color: #000;
+            font-weight: 700;
+            transition: all 0.2s;
+            box-shadow: 4px 4px 0px #000;
         }
-        
-        .container {
-            width: 100%; max-width: 500px; background: var(--glass-bg);
-            border: 1px solid var(--glass-border); border-radius: 20px;
-            box-shadow: 0 8px 32px 0 var(--shadow-color); backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px); padding: 40px 30px; text-align: center;
-            position: relative; overflow: hidden; transition: box-shadow 0.5s ease;
+        .social-link-item:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px var(--accent-green);
+            background: #f0f0f0;
+        }
+        .social-link-item span { direction: ltr; }
+        .social-icon { width: 24px; height: 24px; }
+
+        /* --- SECTIONS GENERAL --- */
+        .section-block {
+            padding: 30px 20px;
+            border-top: var(--main-border);
+        }
+        .section-header {
+            font-size: 1.4rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-header::before {
+            content: '';
+            display: block;
+            width: 20px;
+            height: 20px;
+            background: #000;
+        }
+
+        /* --- ADVISOR (INTERACTIVE) --- */
+        .advisor-interactive-area {
+            position: relative;
+            min-height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: 
+                linear-gradient(45deg, #000 25%, transparent 25%, transparent 75%, #000 75%, #000),
+                linear-gradient(45deg, #000 25%, transparent 25%, transparent 75%, #000 75%, #000);
+            background-color: #fff;
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            border: var(--main-border);
+            padding: 20px;
+            opacity: 0.1; /* Pattern opacity hack */
+        }
+        /* Fix for pattern opacity not affecting content */
+        .advisor-container {
+            background: var(--accent-yellow);
+            border: var(--main-border);
+            padding: 20px;
+            width: 100%;
+            position: relative;
+        }
+
+        .advisor-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: opacity 0.3s, transform 0.3s;
+        }
+        .advisor-card.hidden {
             opacity: 0;
             pointer-events: none;
-            transform: scale(0.95);
-            transition: opacity 0.8s ease 0.2s, transform 0.8s ease 0.2s;
+            position: absolute;
+            top: 0; left: 0; width: 100%;
         }
-        .container.is-visible {
-            opacity: 1;
-            pointer-events: auto;
-            transform: scale(1);
+        .advisor-img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border: var(--main-border);
+            border-radius: 50%;
+            background: #fff;
+            margin-bottom: 15px;
         }
+        .advisor-name-btn {
+            background: #000;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            box-shadow: 4px 4px 0px var(--accent-cyan);
+            transition: transform 0.1s;
+        }
+        .advisor-name-btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0px var(--accent-cyan); }
+
+        .advisor-quiz {
+            display: none;
+            flex-direction: column;
+            width: 100%;
+            text-align: center;
+        }
+        .advisor-quiz.active { display: flex; }
         
-        .container::before { content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255, 183, 3, 0.1) 0%, rgba(0, 0, 0, 0) 70%); z-index: -1; animation: rotate 30s linear infinite; }
-        @keyframes rotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        /* --- STYLES FOR TIMED EVENT --- */
-        #event-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(0, 0, 0, 0); z-index: 9999; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: background-color 1.5s ease, opacity 1.5s ease; }
-        #event-overlay.is-active { background-color: rgb(0, 0, 0); opacity: 1; pointer-events: auto; }
-        #lightning-flash { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: white; opacity: 0; z-index: 10000; pointer-events: none; clip-path: polygon(50% 0%, 48% 15%, 51% 15%, 49% 35%, 52% 35%, 50% 55%, 53% 55%, 49% 80%, 52% 80%, 50% 100%, 55% 100%, 57% 80%, 53% 80%, 56% 55%, 52% 55%, 54% 35%, 50% 35%, 53% 15%, 49% 15%, 50% 0%); }
-        @keyframes lightning-strike { 0% { opacity: 0; } 2% { opacity: 1; } 5% { opacity: 0; } 15% { opacity: 0.6; } 20% { opacity: 0; } 100% { opacity: 0; } }
-        #event-text { color: var(--primary-text); font-size: 10vw; font-weight: 700; opacity: 0; transform: scale(0.8); transition: opacity 0.5s ease 1s, transform 0.5s ease 1s; z-index: 10001; }
-        #event-overlay.is-active #event-text { opacity: 1; transform: scale(1); }
+        .quiz-question { font-weight: 800; margin-bottom: 15px; font-size: 1.1rem; }
+        .quiz-option {
+            background: #fff;
+            border: 2px solid #000;
+            padding: 10px;
+            margin: 5px 0;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .quiz-option:hover { background: #000; color: #fff; }
         
-        .header-logos { display: flex; justify-content: center; align-items: center; gap: 30px; margin-bottom: 25px; }
-        .logo { max-height: 70px; width: auto; filter: drop-shadow(0 0 5px rgba(0,0,0,0.5)); transition: transform 0.3s ease; filter: brightness(0) invert(1); }
-        .logo:hover { transform: scale(1.05); }
-        .intro-text { margin-bottom: 35px; }
-        .association-title { font-size: 1.25rem; font-weight: 700; line-height: 1.4; color: var(--primary-text); margin-bottom: 10px; }
-        .association-tagline { font-size: 0.8rem; color: var(--secondary-text); line-height: 1.6; }
-        .social-links { display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px; }
-        .social-link-item { display: flex; align-items: center; padding: 12px 20px; background: rgba(255, 255, 255, 0.1); border-radius: 12px; text-decoration: none; color: var(--primary-text); font-weight: 500; transition: transform 0.2s ease, background-color 0.2s ease; direction: ltr; }
-        .social-link-item:hover { transform: scale(1.05); background-color: rgba(255, 255, 255, 0.2); }
-        .social-icon { width: 28px; height: 28px; margin-right: 8px; }
-        .divider { border: none; height: 1px; background: linear-gradient(to left, transparent, var(--glass-border), transparent); margin: 40px 0; }
+        .error-shake { animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both; }
+        @keyframes shake { 10%, 90% { transform: translate3d(-1px, 0, 0); } 20%, 80% { transform: translate3d(2px, 0, 0); } 30%, 50%, 70% { transform: translate3d(-4px, 0, 0); } 40%, 60% { transform: translate3d(4px, 0, 0); } }
 
-        .section-title { font-size: 1.2rem; font-weight: 500; color: var(--primary-text); margin-bottom: 25px; border-bottom: 1px solid var(--accent-color); display: inline-block; padding-bottom: 5px; }
-        .advisor-section { display: flex; flex-direction: column; align-items: center; }
-        .advisor-section .section-title,
-        .advisor-name { transition: opacity 0.4s ease, transform 0.4s ease; }
-        .advisor-section.quiz-active .section-title,
-        .advisor-section.quiz-active .advisor-name { opacity: 0; transform: translateY(-20px); pointer-events: none; }
-        .advisor-interactive-area { position: relative; height: 150px; width: 100%; display: flex; justify-content: center; align-items: center; }
-        .advisor-image-wrapper, .advisor-quiz-wrapper { position: absolute; transition: opacity 0.5s ease, transform 0.5s ease; }
-        .advisor-image-wrapper { opacity: 1; transform: scale(1); cursor: pointer; }
-        .advisor-section.quiz-active .advisor-image-wrapper { opacity: 0; transform: scale(0.5); pointer-events: none; }
-        .advisor-quiz-wrapper { opacity: 0; transform: scale(1.2); pointer-events: none; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 15px; padding: 20px; width: 90%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-        .advisor-section.quiz-active .advisor-quiz-wrapper { opacity: 1; transform: scale(1); pointer-events: auto; }
-        .quiz-question { font-size: 1rem; margin-bottom: 15px; line-height: 1.5; font-weight: 500; }
-        .quiz-options { font-size: 0.9rem; width: 100%; }
-        .quiz-option { padding: 8px; margin: 4px 0; border-radius: 8px; transition: background-color 0.2s; cursor: pointer; }
-        .quiz-option:hover { background-color: var(--glass-border); }
-        .advisor-img { width: 100px; height: 100px; border-radius: 50%; border: 2px solid var(--glass-border); object-fit: cover; box-shadow: 0 4px 15px var(--shadow-color); }
-        .advisor-name { font-size: 1.1rem; font-weight: 700; color: var(--primary-text); cursor: pointer; margin-top: 15px; }
-        .container.error-effect { animation: shakeAndRed 0.5s 10; box-shadow: 0 0 40px 10px rgba(255, 0, 0, 0.5); }
-        @keyframes shakeAndRed { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+        /* --- TEAM LIST --- */
+        .team-list { list-style: none; }
+        .team-member {
+            background: #fff;
+            border: 2px solid #000;
+            margin-bottom: 10px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 4px 4px 0px rgba(0,0,0,0.2);
+        }
+        .member-name {
+            font-weight: 900;
+            font-size: 1.1rem;
+            background: var(--accent-green);
+            display: inline-block;
+            align-self: flex-start;
+            padding: 2px 8px;
+            border: 1px solid #000;
+            margin-bottom: 5px;
+        }
+        .member-role {
+            font-size: 0.9rem;
+            color: #444;
+            line-height: 1.5;
+        }
 
-        .team-list { list-style: none; padding: 0; text-align: right; }
-        .team-member { display: flex; justify-content: space-between; align-items: center; padding: 15px 5px; border-bottom: 1px solid var(--glass-border); }
-        .team-member:last-child { border-bottom: none; }
-        .member-name { font-weight: 500; white-space: nowrap; padding-left: 15px; }
-        .member-role { font-size: 0.9rem; color: var(--secondary-text); text-align: left; }
-        .telegram-post .section-title-telegram { font-size: 1.1rem; font-weight: 500; color: var(--secondary-text); margin-bottom: 20px; }
-        #telegram-embed-container { min-height: 200px; background: rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 10px; display: flex; justify-content: center; align-items: center; }
-        #telegram-embed-container iframe { max-width: 100%; }
-        .loading-indicator { display: flex; flex-direction: column; align-items: center; gap: 10px; }
-        .loading-spinner { width: 30px; height: 30px; border: 3px solid rgba(255, 255, 255, 0.1); border-top-color: var(--accent-color); border-radius: 50%; animation: spin 1s linear infinite; }
+        /* --- TELEGRAM SECTION --- */
+        #telegram-embed-container {
+            min-height: 250px;
+            background: #fff;
+            border: var(--main-border);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        /* Fallback Error Style */
+        .tg-error-msg {
+            text-align: center;
+            padding: 20px;
+            background: repeating-linear-gradient(
+                45deg,
+                var(--accent-pink),
+                var(--accent-pink) 10px,
+                var(--accent-yellow) 10px,
+                var(--accent-yellow) 20px
+            );
+            border: var(--main-border);
+            width: 90%;
+        }
+        .tg-error-text {
+            background: #fff;
+            border: 2px solid #000;
+            padding: 15px;
+            font-weight: bold;
+            box-shadow: 4px 4px 0 #000;
+        }
+
+        .loading-spinner {
+            width: 40px; height: 40px;
+            border: 5px solid #000;
+            border-top-color: var(--accent-pink);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
         @keyframes spin { to { transform: rotate(360deg); } }
-        .loading-text { color: var(--secondary-text); font-size: 0.9rem; }
-        .footer { margin-top: 40px; font-size: 0.8rem; color: var(--secondary-text); }
+
+        /* --- FOOTER --- */
+        .footer {
+            background: #000;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            font-size: 0.8rem;
+            border-top: var(--main-border);
+        }
+
+        /* --- RESPONSIVE ADJUSTMENTS --- */
+        @media (max-width: 480px) {
+            .brutal-container { margin: 0; width: 100%; border-width: 2px; }
+            .header-logos { gap: 10px; }
+            .logo { height: 60px; }
+            .association-title { font-size: 1.2rem; }
+            .section-header { font-size: 1.1rem; }
+        }
     </style>
 </head>
 <body>
-    <div id="entry-screen">
-        <!-- <<< TEXT ADDED HERE >>> -->
-        <p class="volume-prompt">لطفا صدای گوشیتو زیاد کن.</p>
-        <button id="entryButton">بزن بریم</button>
-    </div>
 
-    <div id="event-overlay">
-        <div id="event-text">۹ آبان</div>
-    </div>
-    <div id="lightning-flash"></div> 
-    <audio id="thunderSound" src="https://sedatoseda.com/wp-content/uploads/thunder4.mp3" preload="auto"></audio>
-
-    <div class="container">
-        <header class="header-logos">
-            <img src="https://z-cdn-media.chatglm.cn/files/11b2a727-6a87-46de-b22f-98be8ca66441_photo_5895431462822464889_x-removebg-preview.png?auth_key=1789208362-4c28e44979d34b6c8c7ed7f0dc668927-0-43e20f1b0451685d3aa887fcc604c96b" alt="لوگوی انجمن" class="logo">
-            <img src="https://z-cdn-media.chatglm.cn/files/8ee6bc11-8d5b-49ea-9bdf-158c19729646_allameh%20logo.png?auth_key=1789208362-3f3bde30bb86471b9b37fa556f72d162-0-01e4201fb43a2ad732bf789383bf8982" alt="لوگوی دانشگاه" class="logo">
-        </header>
-
-        <div class="intro-text">
-            <h1 class="association-title">انجمن علمی-دانشجویی مطالعات اجتماعی و سیاسی</h1>
-            <p class="association-tagline">ما یک انجمن بینارشته‌ای هستیم. پس از هر رشته‌ای که هستی، خوش اومدی.</p>
+    <div class="brutal-container">
+        <!-- Scrolling Marquee -->
+        <div class="marquee-container">
+            <div class="marquee-content">
+                ★ به انجمن علمی مطالعات اجتماعی و سیاسی خوش آمدید ★ دانشگاه علامه طباطبایی ★ عضویت رایگان ★ حلقه‌های مطالعاتی ★ نشست‌های تخصصی ★
+            </div>
         </div>
 
-        <section class="social-links">
-            <a href="https://t.me/social_political_studies_atu" class="social-link-item" target="_blank" rel="noopener noreferrer">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Telegram_2019_Logo.svg" alt="لوگوی تلگرام" class="social-icon">
+        <header class="header-section">
+            <div class="header-logos">
+                <img src="https://z-cdn-media.chatglm.cn/files/11b2a727-6a87-46de-b22f-98be8ca66441_photo_5895431462822464889_x-removebg-preview.png?auth_key=1789208362-4c28e44979d34b6c8c7ed7f0dc668927-0-43e20f1b0451685d3aa887fcc604c96b" alt="لوگوی انجمن" class="logo">
+                <img src="https://z-cdn-media.chatglm.cn/files/8ee6bc11-8d5b-49ea-9bdf-158c19729646_allameh%20logo.png?auth_key=1789208362-3f3bde30bb86471b9b37fa556f72d162-0-01e4201fb43a2ad732bf789383bf8982" alt="لوگوی دانشگاه" class="logo">
+            </div>
+            
+            <div class="title-box">انجمن علمی-دانشجویی</div>
+            <h1 class="association-title">مطالعات اجتماعی و سیاسی</h1>
+            <p class="association-tagline">ما یک انجمن بینارشته‌ای هستیم</p>
+        </header>
+
+        <section class="social-section">
+            <a href="https://t.me/social_political_studies_atu" class="social-link-item" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Telegram_2019_Logo.svg" alt="Telegram" class="social-icon">
                 <span>@social_political_studies_atu</span>
             </a>
-            <a href="https://www.instagram.com/atu.sociopoliticalstudies/" class="social-link-item" target="_blank" rel="noopener noreferrer">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Instagram_logo_2022.svg" alt="لوگوی اینستاگرام" class="social-icon">
+            <a href="https://www.instagram.com/atu.sociopoliticalstudies/" class="social-link-item" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Instagram_logo_2022.svg" alt="Instagram" class="social-icon">
                 <span>@atu.sociopoliticalstudies</span>
             </a>
         </section>
-        
-        <hr class="divider">
-        <section class="advisor-section" id="advisorSection">
-            <h2 class="section-title">استاد مشاور انجمن</h2>
-            
-            <div class="advisor-interactive-area">
-                <div class="advisor-image-wrapper" id="advisorImageWrapper">
-                    <img src="https://i.ibb.co/9km6Gvtq/010204-54449.jpg" alt="عکس دکتر علی جنادله" class="advisor-img">
-                </div>
-                <div class="advisor-quiz-wrapper">
-                    <div class="quiz-question">دکتر علی جنادله عضو هیئت علمی کدام گروه است؟</div>
-                    <div class="quiz-options">
-                        <div class="quiz-option" data-answer="a">الف. جامعه‌شناسی</div>
-                        <div class="quiz-option" data-answer="b">ب. مطالعات فرهنگی</div>
-                        <div class="quiz-option" data-answer="c">ج. مطالعات زنان</div>
-                        <div class="quiz-option" data-answer="d">د. تعاون و رفاه</div>
-                    </div>
+
+        <section class="section-block" id="advisorSection">
+            <h2 class="section-header"> استاد مشاور انجمن</h2>            <div class="advisor-container">
+                <!-- Card View -->
+                <div class="advisor-card" id="advisorCard">
+                    <img src="https://i.ibb.co/7JJSYXns/b6a68da8-2063-4d51-a2eb-d9ceb4c7fbfa.jpg" alt="دکتر علی جنادله" class="advisor-img">
+                    <button class="advisor-name-btn" id="advisorBtn">دکتر علی جنادله</button>                </div>
+                
+                <!-- Quiz View -->
+                <div class="advisor-quiz" id="advisorQuiz">
+                    <div class="quiz-question">دکتر جنادله عضو هیئت علمی کدام گروه است؟</div>
+                    <div class="quiz-option" data-answer="a">الف. جامعه‌شناسی</div>
+                    <div class="quiz-option" data-answer="b">ب. مطالعات فرهنگی</div>
+                    <div class="quiz-option" data-answer="c">ج. مطالعات زنان</div>
+                    <div class="quiz-option" data-answer="d">د. تعاون و رفاه</div>
                 </div>
             </div>
-
-            <p class="advisor-name" id="advisorName">دکتر علی جنادله</p>
         </section>
 
-        <hr class="divider">
-        <section class="team-section">
-            <h2 class="section-title">اعضای اصلی انجمن</h2>
-            <ul class="team-list">
-                <li class="team-member"> <span class="member-name">مانی بورستانی</span> <span class="member-role">دبیر انجمن • مسئول تولید محتوا • مسئول هماهنگی امور اجرایی</span> </li>
-                <li class="team-member"> <span class="member-name">کیانا اکبری</span> <span class="member-role">مسئول توسعه ارتباطات انجمن • مسئول هماهنگی امور اجرایی • مسئول تحلیل و پیشنهاد محتوا</span> </li>
-                <li class="team-member"> <span class="member-name">مهسا جماره</span> <span class="member-role">مسئول اینستاگرام • مسئول تحلیل و پیشنهاد محتوا</span> </li>
-                <li class="team-member"> <span class="member-name">هلن مجریان شرقی</span> <span class="member-role">مسئول اینستاگرام • مسئول حلقه‌های مطالعاتی و نشست‌های علمی</span> </li>
-                <li class="team-member"> <span class="member-name">نازنین کلانی</span> <span class="member-role">مسئول آرشیو و مستندسازی فعالیت‌ها</span> </li>
-                <li class="team-member"> <span class="member-name">ساجده مفیدی‌نسب</span> <span class="member-role">مسئول آرشیو و مستندسازی فعالیت‌ها</span> </li>
+        <section class="section-block">
+            <h2 class="section-header">شورای مرکزی انجمن</h2>            <ul class="team-list">
+                <li class="team-member">
+                    <span class="member-name">مانی بورستانی</span>
+                    <span class="member-role">دبیر انجمن علمی / مسئول تولید محتوا</span>
+                </li>
+                <li class="team-member">
+                    <span class="member-name">کیانا اکبری</span>
+                    <span class="member-role">مسئول توسعه ارتباطات / مسئول امور اجرایی</span>
+                </li>
+                <li class="team-member">
+                    <span class="member-name">مهسا جماره</span>
+                    <span class="member-role">مسئول تحلیل و پیشنهاد محتوا</span>
+                </li>
+                <li class="team-member">
+                    <span class="member-name">هلن مجریان شرقی</span>
+                    <span class="member-role">مسئول اینستاگرام / مسئول هماهنگیِ کارگاه‌ها و نشست‌های علمی</span>
+                </li>
+                <li class="team-member">
+                    <span class="member-name">نازنین کلانی</span>
+                    <span class="member-role">مسئول آرشیو و مستندسازی / مسئول تحلیل و پیشنهاد محتوا</span>
+                </li>
+                <li class="team-member">
+                    <span class="member-name">ساجده مفیدی‌نسب</span>
+                    <span class="member-role">مسئول آرشیو و مستندسازی / مسئول تحلیل و پیشنهاد محتوا</span>
+                </li>
             </ul>
         </section>
-        
-        <hr class="divider">
-        <section class="telegram-post">
-            <h2 class="section-title-telegram">از کانال تلگرام ما</h2>
-            <div id="telegram-embed-container">
-                <div class="loading-indicator">...</div>
+
+        <section class="section-block">
+            <h2 class="section-header">پست‌های تلگرام ما</h2>            <div id="telegram-embed-container">
+                <div class="loading-spinner"></div>
             </div>
         </section>
-        
+
         <div class="footer">
-            انجمن علمی-دانشجویی مطالعات اجتماعی و سیاسی دانشگاه علامه طباطبایی
+          انجمن علمی-دانشجویی مطالعات اجتماعی و سیاسی
+            <br>
+            دانشگاه علامه طباطبایی - ۱۴۰۴
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const entryScreen = document.getElementById('entry-screen');
-            const entryButton = document.getElementById('entryButton');
-            const mainContainer = document.querySelector('.container');
-            const eventOverlay = document.getElementById('event-overlay');
-            const lightningFlash = document.getElementById('lightning-flash');
-            const thunderSound = document.getElementById('thunderSound');
-
-            // --- ENTRY LOGIC ---
-            if (entryButton) {
-                entryButton.addEventListener('click', function() {
-                    mainContainer.classList.add('is-visible');
-                    entryScreen.classList.add('is-hidden');
-                    
-                    // Set a 5-second timer for the lightning event AFTER the click
-                    setTimeout(startEvent, 5000);
-                }, { once: true });
-            }
-
-            // --- TIMED EVENT LOGIC ---
-            function startEvent() {
-                thunderSound.play().catch(e => console.error("Audio play failed:", e));
-                lightningFlash.style.animation = 'lightning-strike 1s forwards';
-                setTimeout(() => { eventOverlay.classList.add('is-active'); }, 200);
-                setTimeout(endEvent, 5500);
-            }
-
-            function endEvent() {
-                eventOverlay.classList.remove('is-active');
-                setTimeout(() => { lightningFlash.style.animation = ''; }, 1500);
-            }
-
             // --- ADVISOR QUIZ LOGIC ---
-            const advisorSection = document.getElementById('advisorSection');
-            const advisorImageWrapper = document.getElementById('advisorImageWrapper');
-            const advisorName = document.getElementById('advisorName');
+            const advisorCard = document.getElementById('advisorCard');
+            const advisorQuiz = document.getElementById('advisorQuiz');
+            const advisorBtn = document.getElementById('advisorBtn');
+            const advisorContainer = document.querySelector('.advisor-container');
             const quizOptions = document.querySelectorAll('.quiz-option');
-            let isQuizActive = false;
-            let isInteractive = true;
+            let isQuizMode = false;
 
-            function toggleQuiz() {
-                if (isInteractive) {
-                    isQuizActive = !isQuizActive;
-                    advisorSection.classList.toggle('quiz-active', isQuizActive);
+            // Toggle function
+            function toggleView() {
+                isQuizMode = !isQuizMode;
+                if(isQuizMode) {
+                    advisorCard.style.display = 'none';
+                    advisorQuiz.classList.add('active');
+                } else {
+                    advisorQuiz.classList.remove('active');
+                    advisorCard.style.display = 'flex';
                 }
             }
 
-            advisorImageWrapper.addEventListener('click', toggleQuiz);
-            advisorName.addEventListener('click', toggleQuiz);
+            advisorBtn.addEventListener('click', toggleView);
 
+            // Answer checking
             quizOptions.forEach(option => {
-                option.addEventListener('click', function(event) {
-                    if (!isInteractive) return;
-                    event.stopPropagation();
-                    isInteractive = false;
+                option.addEventListener('click', function() {
                     const isCorrect = this.dataset.answer === 'c';
-
+                    
                     if (isCorrect) {
-                        confetti({ particleCount: 150, spread: 90, origin: { y: 0.6 } });
-                    } else {
-                        mainContainer.classList.add('error-effect');
-                    }
-
-                    setTimeout(() => {
-                        isQuizActive = false;
-                        advisorSection.classList.remove('quiz-active');
-                        if (!isCorrect) {
-                            mainContainer.classList.remove('error-effect');
-                        }
+                        this.style.backgroundColor = 'var(--accent-green)';
+                        this.style.color = '#fff';
+                        confetti({
+                            particleCount: 150,
+                            spread: 100,
+                            origin: { y: 0.6 },
+                            colors: ['#ff9ff3', '#feca57', '#48dbfb']
+                        });
                         setTimeout(() => {
-                            isInteractive = true;
+                            toggleView();
+                            this.style.backgroundColor = '#fff'; // reset
+                            this.style.color = '#000';
+                        }, 3000);
+                    } else {
+                        this.style.backgroundColor = '#ff4757';
+                        this.style.color = '#fff';
+                        advisorContainer.classList.add('error-shake');
+                        setTimeout(() => {
+                            advisorContainer.classList.remove('error-shake');
+                            this.style.backgroundColor = '#fff'; // reset
+                            this.style.color = '#000';
                         }, 500);
-                    }, 5000);
+                    }
                 });
             });
 
-            // --- TELEGRAM POST LOGIC ---
+            // --- TELEGRAM LOGIC WITH ERROR HANDLING ---
+            const tgContainer = document.getElementById('telegram-embed-container');
             const telegramEmbedCodes = [
-                '<script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-post="Social_Political_Studies_ATU/240" data-width="100%" data-single><\/script>',
-                '<script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-post="Social_Political_Studies_ATU/199" data-width="100%"><\/script>',
-                '<script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-post="Social_Political_Studies_ATU/187" data-width="100%" data-single><\/script>',
-                '<script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-post="Social_Political_Studies_ATU/163" data-width="100%" data-single><\/script>',
-                '<script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-post="Social_Political_Studies_ATU/139" data-width="100%"><\/script>',
-                '<script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-post="Social_Political_Studies_ATU/136" data-width="100%"><\/script>',
-                '<script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-post="Social_Political_Studies_ATU/248" data-width="100%" data-single><\/script>',
-                '<script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-post="Social_Political_Studies_ATU/183" data-width="100%" data-single><\/script>',
-                '<script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-post="Social_Political_Studies_ATU/47" data-width="100%" data-single><\/script>'
+                'Social_Political_Studies_ATU/240',
+                'Social_Political_Studies_ATU/199',
+                'Social_Political_Studies_ATU/187',
+                'Social_Political_Studies_ATU/163'
             ];
+            
+            // Random Post
+            const randomPost = telegramEmbedCodes[Math.floor(Math.random() * telegramEmbedCodes.length)];
 
-            const randomIndex = Math.floor(Math.random() * telegramEmbedCodes.length);
-            const randomEmbedCode = telegramEmbedCodes[randomIndex];
-            const tg_container = document.getElementById('telegram-embed-container');
+            // Create Script
+            const script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://telegram.org/js/telegram-widget.js?22';
+            script.setAttribute('data-telegram-post', randomPost);
+            script.setAttribute('data-width', '100%');
+            
+            // Inject
+            tgContainer.innerHTML = ''; // Clear spinner container initially handled by appending
+            tgContainer.appendChild(script);
 
-            if (tg_container) {
-                setTimeout(() => {
-                    tg_container.innerHTML = '';
-                    const scriptElement = document.createElement('script');
-                    scriptElement.async = true;
-                    scriptElement.src = 'https://telegram.org/js/telegram-widget.js?22';
-                    const postMatch = randomEmbedCode.match(/data-telegram-post="([^"]+)"/);
-                    if (postMatch) { scriptElement.setAttribute('data-telegram-post', postMatch[1]); }
-                    const widthMatch = randomEmbedCode.match(/data-width="([^"]+)"/);
-                    if (widthMatch) { scriptElement.setAttribute('data-width', widthMatch[1]); }
-                    if (randomEmbedCode.includes('data-single')) { scriptElement.setAttribute('data-single', ''); }
-                    tg_container.appendChild(scriptElement);
-                }, 1000);
-            }
+            // ERROR HANDLING / TIMEOUT
+            // Check after 5 seconds if iframe exists and has height
+            setTimeout(() => {
+                const iframe = tgContainer.querySelector('iframe');
+                if (!iframe || iframe.offsetHeight === 0) {
+                    tgContainer.innerHTML = `
+                        <div class="tg-error-msg">
+                            <div class="tg-error-text">
+                                ⚠ عدم ارتباط با سرور<br>
+                                <span style="font-weight:400; font-size: 0.9rem; margin-top:5px; display:block;">
+                                    برای مشاهده پست‌ها احتمالاً نیاز به فیلترشکن دارید.
+                                </span>
+                                <a href="https://t.me/social_political_studies_atu" style="display:block; margin-top:10px; color:blue;">مشاهده در اپلیکیشن تلگرام</a>
+                            </div>
+                        </div>
+                    `;
+                }
+            }, 7000); // 7 seconds wait time
         });
     </script>
 </body>
